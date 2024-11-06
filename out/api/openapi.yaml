@@ -1,0 +1,41 @@
+openapi: 3.0.0
+info:
+  title: Parent-Child Model API
+  version: 1.0.0
+servers:
+- url: /
+paths:
+  /child:
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Child'
+          description: Successfully retrieved child data
+      summary: Get child data
+components:
+  schemas:
+    Parent:
+      properties:
+        name:
+          description: The name of the person
+          type: string
+      required:
+      - name
+      type: object
+    Child:
+      allOf:
+      - $ref: '#/components/schemas/Parent'
+      - properties:
+          favoriteToy:
+            description: The favorite toy of the child
+            type: string
+        required:
+        - favoriteToy
+        type: object
+      example:
+        favoriteToy: favoriteToy
+        name: name
+
